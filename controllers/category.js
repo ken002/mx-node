@@ -16,15 +16,23 @@ module.exports = {
     },
     //删
     'DELETE /api/category/:id': async (ctx, next) => {
-
-    },
-    //改
-    'PUT /api/category/:id': async (ctx, next) => {
-
-    },
-    //查某个
-    'GET /api/category/:id': async (ctx, next) => {
-
+        console.log('删除某个类别...');
+        const result = await category.deleteCategory(ctx.params.id);
+        console.log(result);
+        if(result){
+            ctx.rest({
+                code:1,
+                message:'删除成功',
+                data:null,
+            });
+        }else{
+            // throw new APIError('product:not_found', 'product not found by id.');
+            ctx.rest({
+                code:0,
+                message:'删除失败',
+                data:null,
+            });
+        }
     },
     //查列表
     'GET /api/category': async (ctx, next) => {
