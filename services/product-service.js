@@ -7,6 +7,14 @@ module.exports = {
         const p= await Product.create(params);
         return p;
     },
+    deleteProduct: async(id)=>{
+        const result = await Product.destroy({
+         where: {
+             id
+           }
+        });
+         return result;
+     },
     updateProduct:async(params,id)=>{
         const result= await Product.update(params,{
             where:{

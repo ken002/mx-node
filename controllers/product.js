@@ -21,7 +21,23 @@ module.exports = {
     },
     //删
     'DELETE /api/products/:id': async (ctx, next) => {
-
+        console.log('删除某商品...');
+        const result = await product.deleteProduct(ctx.params.id);
+        console.log(result);
+        if(result){
+            ctx.rest({
+                code:1,
+                message:'删除成功',
+                data:null,
+            });
+        }else{
+            // throw new APIError('product:not_found', 'product not found by id.');
+            ctx.rest({
+                code:0,
+                message:'删除失败',
+                data:null,
+            });
+        }
     },
     //改
     'PUT /api/products/:id': async (ctx, next) => {
