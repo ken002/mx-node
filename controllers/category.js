@@ -8,11 +8,19 @@ module.exports = {
         const c = await category.createCategory({
             name: ctx.request.body.name
         });
-        ctx.rest({
-            code:1,
-            message:'添加成功',
-            data:c,
-        });
+        if(c){
+            ctx.rest({
+                code:1,
+                message:'添加成功',
+                data:c,
+            });
+        }else{
+            ctx.rest({
+                code:0,
+                message:'添加失败',
+                data:null,
+            });
+        }
     },
     //删
     'DELETE /api/category/:id': async (ctx, next) => {
@@ -26,7 +34,6 @@ module.exports = {
                 data:null,
             });
         }else{
-            // throw new APIError('product:not_found', 'product not found by id.');
             ctx.rest({
                 code:0,
                 message:'删除失败',

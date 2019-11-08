@@ -24,18 +24,17 @@ module.exports = {
         console.log('删除某商品...');
         const result = await product.deleteProduct(ctx.params.id);
         console.log(result);
-        if(result){
+        if (result) {
             ctx.rest({
-                code:1,
-                message:'删除成功',
-                data:null,
+                code: 1,
+                message: '删除成功',
+                data: null,
             });
-        }else{
-            // throw new APIError('product:not_found', 'product not found by id.');
+        } else {
             ctx.rest({
-                code:0,
-                message:'删除失败',
-                data:null,
+                code: 0,
+                message: '删除失败',
+                data: null,
             });
         }
     },
@@ -81,18 +80,43 @@ module.exports = {
     },
     //查列表
     'GET /api/products': async (ctx, next) => {
-        console.log('查询商品列表...');
+        console.log('商品列表...');
+        const name = ctx.request.query.name;
+        const hot = ctx.request.query.hot;
+        const online = ctx.request.query.online;
         const page = ctx.request.query.page;
         const limit = ctx.request.query.limit;
         const offset = (page - 1) * limit;
-        const products = await product.getProducts({
-            limit,
-            offset
-        });
+
+        let products = null;
+        if (name!=='null') {
+            products = await product.getProductsByName({
+                limit,
+                offset,
+                name
+            });
+        } else if(hot!=='null'){
+            products = await product.getProductsHot({
+                limit,
+                offset,
+                hot
+            });
+        } else if(online!=='null'){
+            products = await product.getProductsOnline({
+                limit,
+                offset,
+                online
+            });
+        } else {
+            products = await product.getProducts({
+                limit,
+                offset
+            });
+        }
         ctx.rest({
             code: 1,
             message: '查询成功',
             data: products,
         });
-    },
+    }
 };

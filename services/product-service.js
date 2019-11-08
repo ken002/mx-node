@@ -1,4 +1,6 @@
 const model = require('../model');
+const Sequelize = require('sequelize');
+const Op = Sequelize.Op;
 
 let Product = model.Product;
 
@@ -34,7 +36,39 @@ module.exports = {
     getProducts: async(params) => {
         const products = Product.findAll({
             limit: parseInt(params.limit),
+            offset: parseInt(params.offset)
+        });
+        return products;
+    },
+    getProductsByName: async(params) => {
+        const products = Product.findAll({
+            limit: parseInt(params.limit),
             offset: parseInt(params.offset),
+            where:{
+                name:{
+                    [Op.substring]:params.name
+                }
+            }
+        });
+        return products;
+    },
+    getProductsHot: async(params) =>{
+        const products = Product.findAll({
+            limit: parseInt(params.limit),
+            offset: parseInt(params.offset),
+            where:{
+                hot:params.hot
+            }
+        });
+        return products;
+    },
+    getProductsOnline: async(params) =>{
+        const products = Product.findAll({
+            limit: parseInt(params.limit),
+            offset: parseInt(params.offset),
+            where:{
+                online:params.online
+            }
         });
         return products;
     },
