@@ -1,5 +1,6 @@
 const fs = require('fs');
 const APIError = require('../rest').APIError;
+const config = require('../config');
 
 module.exports = {
     'POST /api/upload': async (ctx, next) => {
@@ -15,7 +16,7 @@ module.exports = {
             code:1,
             message:'上传成功',
             data:{
-                url:`http://localhost:8000/${fileName}`
+                url:`http://${config}:8888/${fileName}`
             },
         });
     }
