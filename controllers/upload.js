@@ -16,7 +16,7 @@ module.exports = {
             code:1,
             message:'上传成功',
             data:{
-                url:`http://${config}:8888/${fileName}`
+                url:`http://${config.host}:8888/${fileName}`
             },
         });
     }

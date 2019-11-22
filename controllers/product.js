@@ -10,7 +10,7 @@ module.exports = {
             image: ctx.request.body.image,
             intro: ctx.request.body.intro,
             online: ctx.request.body.online,
-            hot: ctx.request.body.hot,
+            pType: ctx.request.body.pType,
             category: ctx.request.body.category
         });
         ctx.rest({
@@ -46,7 +46,7 @@ module.exports = {
             image: ctx.request.body.image,
             intro: ctx.request.body.intro,
             online: ctx.request.body.online,
-            hot: ctx.request.body.hot,
+            pType: ctx.request.body.pType,
             category: ctx.request.body.category
         }, ctx.params.id);
         if (result) {
@@ -78,11 +78,21 @@ module.exports = {
             data: p,
         });
     },
+    //查列表（按类别）
+    'GET /api/productsByCategory/:id': async (ctx, next) => {
+        console.log('商品列表(按类别，不分页)...');
+        const products = await product.getProductsByCategory(ctx.params.id);
+        ctx.rest({
+            code: 1,
+            message: '查询成功',
+            data: products,
+        });
+    },
     //查列表
     'GET /api/products': async (ctx, next) => {
         console.log('商品列表...');
         const name = ctx.request.query.name;
-        const hot = ctx.request.query.hot;
+        const pType = ctx.request.query.pType;
         const online = ctx.request.query.online;
         const page = ctx.request.query.page;
         const limit = ctx.request.query.limit;
@@ -90,25 +100,25 @@ module.exports = {
 
         let products = null;
         if (name!=='null') {
-            products = await product.getProductsByName({
+            products = await product.getProductsByName({//名称搜索
                 limit,
                 offset,
                 name
             });
-        } else if(hot!=='null'){
-            products = await product.getProductsHot({
+        } else if(pType!=='null'){
+            products = await product.getProductsByType({//查询本店/流行
                 limit,
                 offset,
-                hot
+                pType
             });
         } else if(online!=='null'){
-            products = await product.getProductsOnline({
+            products = await product.getProductsOnline({//查询上架的/下架的
                 limit,
                 offset,
                 online
             });
         } else {
-            products = await product.getProducts({
+            products = await product.getProducts({//查询所有
                 limit,
                 offset
             });

@@ -52,12 +52,12 @@ module.exports = {
         });
         return products;
     },
-    getProductsHot: async(params) =>{
+    getProductsByType: async(params) =>{
         const products = Product.findAll({
             limit: parseInt(params.limit),
             offset: parseInt(params.offset),
             where:{
-                hot:params.hot
+                pType:params.pType
             }
         });
         return products;
@@ -72,4 +72,12 @@ module.exports = {
         });
         return products;
     },
+    getProductsByCategory: async(category)=>{
+        const products= await Product.findAll({
+            where:{
+                category
+            }
+        });
+        return products;
+    }
 }
