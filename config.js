@@ -13,7 +13,7 @@ var config = {
     database: 'mx_mj_online',
     username: 'dms',
     password: 'Sjb0793881211@',
-    host: '120.26.73.52',
+    host: '180.76.175.210',
     port: 3306
 };
 

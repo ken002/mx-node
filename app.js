@@ -7,7 +7,12 @@ const controller = require('./controller');
 const rest = require('./rest');
 const fs = require('fs');
 const path = require('path');
+const http = require('http');
+const https = require('https');
+const enforceHttps = require('koa-sslify').default;
 
+// Force HTTPS on all page
+app.use(enforceHttps());
 app.use(cors());
 app.use(koaBody({
     multipart: true,
@@ -20,6 +25,14 @@ app.use(bodyParser());
 app.use(rest.restify());
 app.use(controller());
 
-app.listen(80);
-console.log('app started at port 80...');
+// SSL options
+const options = {
+    key: fs.readFileSync('./https/3139749_jinluoyang.top.key'),  //ssl文件路径
+    cert: fs.readFileSync('./https/3139749_jinluoyang.top.pem')  //ssl文件路径
+};
+ 
+http.createServer(app.callback()).listen(81);
+https.createServer(options, app.callback()).listen(443);
+
+console.log('server is running');
 
