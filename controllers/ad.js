@@ -5,14 +5,15 @@ module.exports = {
     //增
     'POST /api/ad': async (ctx, next) => {
         console.log('新增广告...');
-        const ad = await ad.createAd({
+    
+        const result = await ad.createAd({
             image: ctx.request.body.image,
             intro: ctx.request.body.intro,
         });
         ctx.rest({
             code: 1,
             message: '添加成功',
-            data: ad,
+            data: result,
         });
     },
     //删
@@ -56,8 +57,22 @@ module.exports = {
         }
 
     },
+    //查某个
+    'GET /api/ad/:id': async (ctx, next) => {
+        console.log('查询某广告...');
+        const result = await ad.getAd(ctx.params.id);
+        let res = null;
+        if (result.length === 1) {
+            res = result[0];
+        }
+        ctx.rest({
+            code: 1,
+            message: '查询成功',
+            data: res,
+        });
+    },
     //查列表
-    'GET /api/ad': async (ctx, next) => {
+    'GET /api/ads': async (ctx, next) => {
         console.log('广告列表...');
         const ads = await ad.getAds();
         ctx.rest({

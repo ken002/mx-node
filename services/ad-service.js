@@ -1,16 +1,14 @@
 const model = require('../model');
-const Sequelize = require('sequelize');
-const Op = Sequelize.Op;
 
 let Ad = model.Ad;
 
 module.exports = {
     createAd:async(params)=>{
-        const ad= await Product.create(params);
+        const ad= await Ad.create(params);
         return ad;
     },
     deleteAd: async(id)=>{
-        const result = await Product.destroy({
+        const result = await Ad.destroy({
          where: {
              id
            }
@@ -18,7 +16,15 @@ module.exports = {
          return result;
      },
     updateAd:async(params,id)=>{
-        const result= await Product.update(params,{
+        const result= await Ad.update(params,{
+            where:{
+                id
+            }
+        });
+        return result;
+    },
+    getAd:async(id)=>{
+        const result= await Ad.findAll({
             where:{
                 id
             }
@@ -26,7 +32,7 @@ module.exports = {
         return result;
     },
     getAds: async(params) => {
-        const products = Product.findAll();
-        return products;
+        const ads = Ad.findAll();
+        return ads;
     }
 }
