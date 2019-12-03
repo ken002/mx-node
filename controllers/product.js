@@ -8,9 +8,11 @@ module.exports = {
         const p = await product.createProduct({
             name: ctx.request.body.name,
             image: ctx.request.body.image,
+            video: ctx.request.body.video,
             intro: ctx.request.body.intro,
             online: ctx.request.body.online,
             pType: ctx.request.body.pType,
+            showType: ctx.request.body.showType,
             category: ctx.request.body.category
         });
         ctx.rest({
@@ -44,9 +46,11 @@ module.exports = {
         const result = await product.updateProduct({
             name: ctx.request.body.name,
             image: ctx.request.body.image,
+            video: ctx.request.body.video,
             intro: ctx.request.body.intro,
             online: ctx.request.body.online,
             pType: ctx.request.body.pType,
+            showType: ctx.request.body.showType,
             category: ctx.request.body.category
         }, ctx.params.id);
         if (result) {
