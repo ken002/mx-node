@@ -42,6 +42,7 @@ module.exports = {
             image: ctx.request.body.image,
             intro: ctx.request.body.intro,
         }, ctx.params.id);
+        
         if (result) {
             ctx.rest({
                 code: 1,
