@@ -4,8 +4,8 @@ let Ad = model.Ad;
 
 module.exports = {
     createAd:async(params)=>{
-        const ad= await Ad.create(params);
-        return ad;
+        const result= await Ad.create(params);
+        return result;
     },
     deleteAd: async(id)=>{
         const result = await Ad.destroy({
@@ -32,7 +32,7 @@ module.exports = {
         return result;
     },
     getAds: async(params) => {
-        const ads = Ad.findAll();
-        return ads;
+        const result = Ad.findAll();
+        return result;
     }
 }

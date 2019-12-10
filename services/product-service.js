@@ -6,8 +6,8 @@ let Product = model.Product;
 
 module.exports = {
     createProduct:async(params)=>{
-        const p= await Product.create(params);
-        return p;
+        const result= await Product.create(params);
+        return result;
     },
     deleteProduct: async(id)=>{
         const result = await Product.destroy({
@@ -26,22 +26,22 @@ module.exports = {
         return result;
     },
     getProduct:async(id)=>{
-        const products= await Product.findAll({
+        const result= await Product.findAll({
             where:{
                 id
             }
         });
-        return products;
+        return result;
     },
     getProducts: async(params) => {
-        const products = Product.findAll({
+        const result = Product.findAll({
             limit: parseInt(params.limit),
             offset: parseInt(params.offset)
         });
-        return products;
+        return result;
     },
     getProductsByName: async(params) => {
-        const products = Product.findAll({
+        const result = Product.findAll({
             limit: parseInt(params.limit),
             offset: parseInt(params.offset),
             where:{
@@ -50,34 +50,34 @@ module.exports = {
                 }
             }
         });
-        return products;
+        return result;
     },
     getProductsByType: async(params) =>{
-        const products = Product.findAll({
+        const result = Product.findAll({
             limit: parseInt(params.limit),
             offset: parseInt(params.offset),
             where:{
                 pType:params.pType
             }
         });
-        return products;
+        return result;
     },
     getProductsOnline: async(params) =>{
-        const products = Product.findAll({
+        const result = Product.findAll({
             limit: parseInt(params.limit),
             offset: parseInt(params.offset),
             where:{
                 online:params.online
             }
         });
-        return products;
+        return result;
     },
     getProductsByCategory: async(category)=>{
-        const products= await Product.findAll({
+        const result= await Product.findAll({
             where:{
                 category
             }
         });
-        return products;
+        return result;
     }
 }

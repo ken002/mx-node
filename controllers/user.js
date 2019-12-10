@@ -17,11 +17,20 @@ module.exports = {
             avatarUrl:params.avatarUrl,
             unionId:params.unionId,
         });
-        ctx.rest({
-            code: 1,
-            message: '添加成功',
-            data: result,
-        });
+        console.log(result);
+        if(result){
+            ctx.rest({
+                code: 1,
+                message: '添加成功',
+                data: result,
+            });
+        }else{
+            ctx.rest({
+                code: 0,
+                message: '添加失败',
+                data: result,
+            });
+        }
     },
     //改
     'PUT /api/user': async (ctx, next) => {
@@ -38,17 +47,18 @@ module.exports = {
             avatarUrl:params.avatarUrl,
             unionId:params.unionId,
         });
-        if (result) {
+        console.log(result);
+        if(result===[0]){
             ctx.rest({
                 code: 1,
                 message: '修改成功',
-                data: null,
+                data: result,
             });
-        } else {
+        }else{
             ctx.rest({
                 code: 1,
                 message: '修改失败',
-                data: null,
+                data: result,
             });
         }
 
@@ -58,14 +68,11 @@ module.exports = {
         console.log('查询用户信息...');
         
         const result = await user.getUser(ctx.params.id);
-        let res = null;
-        if (result.length === 1) {
-            res = result[0];
-        }
+        console.log(result);
         ctx.rest({
             code: 1,
             message: '查询成功',
-            data: res,
+            data: result,
         });
     },
     //查列表
@@ -81,6 +88,7 @@ module.exports = {
             offset
         });
 
+        console.log(result);
         ctx.rest({
             code: 1,
             message: '查询成功',

@@ -4,8 +4,8 @@ let Category = model.Category;
 
 module.exports = {
     createCategory:async(params)=>{
-        const c = await Category.create(params);
-        return c;
+        const result = await Category.create(params);
+        return result;
     },
     deleteCategory: async(id)=>{
        const result = await Category.destroy({
@@ -16,7 +16,7 @@ module.exports = {
         return result;
     },
     getCategoryList: async() => {
-        const categoryList = await Category.findAll();
-        return categoryList;
+        const result = await Category.findAll();
+        return result;
     }
 }

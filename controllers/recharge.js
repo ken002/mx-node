@@ -1,14 +1,13 @@
-const notice = require('../services/notice-service');
+const recharge = require('../services/recharge-service');
 const APIError = require('../rest').APIError;
 
 module.exports = {
     //增
-    'POST /api/notice': async (ctx, next) => {
-        console.log('新增公告...');
+    'POST /api/recharge': async (ctx, next) => {
+        console.log('新增充值项...');
     
-        const result = await notice.createNotice({
-            title: ctx.request.body.title,
-            content: ctx.request.body.content,
+        const result = await recharge.createRecharge({
+            intro: ctx.request.body.intro,
         });
         console.log(result);
         if(result){
@@ -26,9 +25,9 @@ module.exports = {
         }
     },
     //删
-    'DELETE /api/notice/:id': async (ctx, next) => {
-        console.log('删除某公告...');
-        const result = await notice.deleteNotice(ctx.params.id);
+    'DELETE /api/recharge/:id': async (ctx, next) => {
+        console.log('删除某充值项...');
+        const result = await recharge.deleteRecharge(ctx.params.id);
         console.log(result);
         if(result===1){
             ctx.rest({
@@ -45,11 +44,10 @@ module.exports = {
         }
     },
     //改
-    'PUT /api/notice/:id': async (ctx, next) => {
-        console.log('修改公告...');
-        const result = await notice.updateNotice({
-            title: ctx.request.body.title,
-            content: ctx.request.body.content,
+    'PUT /api/recharge/:id': async (ctx, next) => {
+        console.log('修改某充值项...');
+        const result = await recharge.updateRecharge({
+            intro: ctx.request.body.intro,
         }, ctx.params.id);
         console.log(result);
         if(result===[0]){
@@ -65,12 +63,12 @@ module.exports = {
                 data: result,
             });
         }
-
+        
     },
     //查某个
-    'GET /api/notice/:id': async (ctx, next) => {
-        console.log('查询某公告...');
-        const result = await notice.getNotice(ctx.params.id);
+    'GET /api/recharge/:id': async (ctx, next) => {
+        console.log('查询某优惠...');
+        const result = await recharge.getRecharge(ctx.params.id);
         console.log(result);
         ctx.rest({
             code: 1,
@@ -79,9 +77,9 @@ module.exports = {
         });
     },
     //查列表
-    'GET /api/notices': async (ctx, next) => {
-        console.log('公告列表...');
-        const result = await notice.getNotices();
+    'GET /api/recharges': async (ctx, next) => {
+        console.log('充值优惠列表...');
+        const result = await recharge.getRecharges();
         console.log(result);
         ctx.rest({
             code: 1,

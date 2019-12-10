@@ -5,20 +5,21 @@ module.exports = {
     //增
     'POST /api/category': async (ctx, next) => {
         console.log('新增分类...');
-        const c = await category.createCategory({
+        const result = await category.createCategory({
             name: ctx.request.body.name
         });
-        if(c){
+        console.log(result);
+        if(result){
             ctx.rest({
-                code:1,
-                message:'添加成功',
-                data:c,
+                code: 1,
+                message: '添加成功',
+                data: result,
             });
         }else{
             ctx.rest({
-                code:0,
-                message:'添加失败',
-                data:null,
+                code: 0,
+                message: '添加失败',
+                data: result,
             });
         }
     },
@@ -27,28 +28,29 @@ module.exports = {
         console.log('删除某个类别...');
         const result = await category.deleteCategory(ctx.params.id);
         console.log(result);
-        if(result){
+        if(result===1){
             ctx.rest({
-                code:1,
-                message:'删除成功',
-                data:null,
+                code: 1,
+                message: '删除成功',
+                data: result,
             });
         }else{
             ctx.rest({
-                code:0,
-                message:'删除失败',
-                data:null,
+                code: 1,
+                message: '删除失败',
+                data: result,
             });
         }
     },
     //查列表
     'GET /api/category': async (ctx, next) => {
         console.log('查询所有分类...');
-        const categoryList = await category.getCategoryList();
+        const result = await category.getCategoryList();
+        console.log(result);
         ctx.rest({
-            code:1,
-            message:'查询成功',
-            data:categoryList,
+            code: 1,
+            message: '查询成功',
+            data: result,
         });
     },
 };

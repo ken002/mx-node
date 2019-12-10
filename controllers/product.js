@@ -5,7 +5,7 @@ module.exports = {
     //增
     'POST /api/products': async (ctx, next) => {
         console.log('新增商品...');
-        const p = await product.createProduct({
+        const result = await product.createProduct({
             name: ctx.request.body.name,
             image: ctx.request.body.image,
             video: ctx.request.body.video,
@@ -15,28 +15,37 @@ module.exports = {
             showType: ctx.request.body.showType,
             category: ctx.request.body.category
         });
-        ctx.rest({
-            code: 1,
-            message: '添加成功',
-            data: p,
-        });
+        console.log(result);
+        if(result){
+            ctx.rest({
+                code: 1,
+                message: '添加成功',
+                data: result,
+            });
+        }else{
+            ctx.rest({
+                code: 0,
+                message: '添加失败',
+                data: result,
+            });
+        }
     },
     //删
     'DELETE /api/products/:id': async (ctx, next) => {
         console.log('删除某商品...');
         const result = await product.deleteProduct(ctx.params.id);
         console.log(result);
-        if (result) {
+        if(result===1){
             ctx.rest({
                 code: 1,
                 message: '删除成功',
-                data: null,
+                data: result,
             });
-        } else {
+        }else{
             ctx.rest({
-                code: 0,
+                code: 1,
                 message: '删除失败',
-                data: null,
+                data: result,
             });
         }
     },
@@ -53,17 +62,18 @@ module.exports = {
             showType: ctx.request.body.showType,
             category: ctx.request.body.category
         }, ctx.params.id);
-        if (result) {
+        console.log(result);
+        if(result===[0]){
             ctx.rest({
                 code: 1,
                 message: '修改成功',
-                data: null,
+                data: result,
             });
-        } else {
+        }else{
             ctx.rest({
                 code: 1,
                 message: '修改失败',
-                data: null,
+                data: result,
             });
         }
 
@@ -71,25 +81,23 @@ module.exports = {
     //查某个
     'GET /api/products/:id': async (ctx, next) => {
         console.log('查询某商品...');
-        const products = await product.getProduct(ctx.params.id);
-        let p = null;
-        if (products.length === 1) {
-            p = products[0];
-        }
+        const result = await product.getProduct(ctx.params.id);
+        console.log(result);
         ctx.rest({
             code: 1,
             message: '查询成功',
-            data: p,
+            data: result,
         });
     },
     //查列表（按类别）
     'GET /api/productsByCategory/:id': async (ctx, next) => {
         console.log('商品列表(按类别，不分页)...');
-        const products = await product.getProductsByCategory(ctx.params.id);
+        const result = await product.getProductsByCategory(ctx.params.id);
+        console.log(result);
         ctx.rest({
             code: 1,
             message: '查询成功',
-            data: products,
+            data: result,
         });
     },
     //查列表
@@ -102,35 +110,36 @@ module.exports = {
         const limit = ctx.request.query.limit;
         const offset = (page - 1) * limit;
 
-        let products = null;
+        let result = null;
         if (name!=='null') {
-            products = await product.getProductsByName({//名称搜索
+            result = await product.getProductsByName({//名称搜索
                 limit,
                 offset,
                 name
             });
         } else if(pType!=='null'){
-            products = await product.getProductsByType({//查询本店/流行
+            result = await product.getProductsByType({//查询本店/流行
                 limit,
                 offset,
                 pType
             });
         } else if(online!=='null'){
-            products = await product.getProductsOnline({//查询上架的/下架的
+            result = await product.getProductsOnline({//查询上架的/下架的
                 limit,
                 offset,
                 online
             });
         } else {
-            products = await product.getProducts({//查询所有
+            result = await product.getProducts({//查询所有
                 limit,
                 offset
             });
         }
+        console.log(result);
         ctx.rest({
             code: 1,
             message: '查询成功',
-            data: products,
+            data: result,
         });
     }
 };

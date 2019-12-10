@@ -4,8 +4,8 @@ let Color = model.Color;
 
 module.exports = {
     createColor:async(params)=>{
-        const color= await Color.create(params);
-        return Color;
+        const result= await Color.create(params);
+        return result;
     },
     deleteColor: async(id)=>{
         const result = await Color.destroy({
@@ -16,7 +16,7 @@ module.exports = {
          return result;
      },
     getColors: async(params) => {
-        const colors = Color.findAll();
-        return colors;
+        const result = Color.findAll();
+        return result;
     }
 }
