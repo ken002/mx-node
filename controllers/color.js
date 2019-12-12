@@ -10,7 +10,7 @@ module.exports = {
             image: ctx.request.body.image,
             price: ctx.request.body.price,
         });
-        console.log(result);
+   
         if(result){
             ctx.rest({
                 code: 1,
@@ -29,7 +29,7 @@ module.exports = {
     'DELETE /api/color/:id': async (ctx, next) => {
         console.log('删除色板...');
         const result = await color.deleteColor(ctx.params.id);
-        console.log(result);
+     
         if(result===1){
             ctx.rest({
                 code: 1,
@@ -49,7 +49,7 @@ module.exports = {
     'GET /api/colors': async (ctx, next) => {
         console.log('色板列表...');
         const result = await color.getColors();
-        console.log(result);
+     
         ctx.rest({
             code: 1,
             message: '查询成功',

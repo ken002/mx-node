@@ -34,14 +34,14 @@ module.exports = {
         return result;
     },
     getProducts: async(params) => {
-        const result = Product.findAll({
+        const result = await Product.findAll({
             limit: parseInt(params.limit),
             offset: parseInt(params.offset)
         });
         return result;
     },
     getProductsByName: async(params) => {
-        const result = Product.findAll({
+        const result = await Product.findAll({
             limit: parseInt(params.limit),
             offset: parseInt(params.offset),
             where:{
@@ -53,7 +53,7 @@ module.exports = {
         return result;
     },
     getProductsByType: async(params) =>{
-        const result = Product.findAll({
+        const result = await Product.findAll({
             limit: parseInt(params.limit),
             offset: parseInt(params.offset),
             where:{
@@ -63,7 +63,7 @@ module.exports = {
         return result;
     },
     getProductsOnline: async(params) =>{
-        const result = Product.findAll({
+        const result = await Product.findAll({
             limit: parseInt(params.limit),
             offset: parseInt(params.offset),
             where:{

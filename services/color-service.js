@@ -16,7 +16,7 @@ module.exports = {
          return result;
      },
     getColors: async(params) => {
-        const result = Color.findAll();
+        const result = await Color.findAll();
         return result;
     }
 }

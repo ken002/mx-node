@@ -9,7 +9,7 @@ module.exports = {
         const result = await recharge.createRecharge({
             intro: ctx.request.body.intro,
         });
-        console.log(result);
+       
         if(result){
             ctx.rest({
                 code: 1,
@@ -28,7 +28,7 @@ module.exports = {
     'DELETE /api/recharge/:id': async (ctx, next) => {
         console.log('删除某充值项...');
         const result = await recharge.deleteRecharge(ctx.params.id);
-        console.log(result);
+       
         if(result===1){
             ctx.rest({
                 code: 1,
@@ -49,7 +49,7 @@ module.exports = {
         const result = await recharge.updateRecharge({
             intro: ctx.request.body.intro,
         }, ctx.params.id);
-        console.log(result);
+      
         if(result===[0]){
             ctx.rest({
                 code: 1,
@@ -69,7 +69,7 @@ module.exports = {
     'GET /api/recharge/:id': async (ctx, next) => {
         console.log('查询某优惠...');
         const result = await recharge.getRecharge(ctx.params.id);
-        console.log(result);
+      
         ctx.rest({
             code: 1,
             message: '查询成功',
@@ -80,7 +80,7 @@ module.exports = {
     'GET /api/recharges': async (ctx, next) => {
         console.log('充值优惠列表...');
         const result = await recharge.getRecharges();
-        console.log(result);
+       
         ctx.rest({
             code: 1,
             message: '查询成功',

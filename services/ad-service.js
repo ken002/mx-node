@@ -32,7 +32,7 @@ module.exports = {
         return result;
     },
     getAds: async(params) => {
-        const result = Ad.findAll();
+        const result = await Ad.findAll();
         return result;
     }
 }

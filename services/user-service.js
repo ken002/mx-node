@@ -24,7 +24,7 @@ module.exports = {
         return result;
     },
     getUsers: async(params) => {
-        const result = User.findAll({
+        const result = await User.findAll({
             limit: parseInt(params.limit),
             offset: parseInt(params.offset),
         });

@@ -17,7 +17,7 @@ module.exports = {
             avatarUrl:params.avatarUrl,
             unionId:params.unionId,
         });
-        console.log(result);
+   
         if(result){
             ctx.rest({
                 code: 1,
@@ -47,7 +47,7 @@ module.exports = {
             avatarUrl:params.avatarUrl,
             unionId:params.unionId,
         });
-        console.log(result);
+   
         if(result===[0]){
             ctx.rest({
                 code: 1,
@@ -68,7 +68,7 @@ module.exports = {
         console.log('查询用户信息...');
         
         const result = await user.getUser(ctx.params.id);
-        console.log(result);
+      
         ctx.rest({
             code: 1,
             message: '查询成功',
@@ -88,7 +88,6 @@ module.exports = {
             offset
         });
 
-        console.log(result);
         ctx.rest({
             code: 1,
             message: '查询成功',

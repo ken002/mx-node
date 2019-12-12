@@ -10,7 +10,7 @@ module.exports = {
             title: ctx.request.body.title,
             content: ctx.request.body.content,
         });
-        console.log(result);
+     
         if(result){
             ctx.rest({
                 code: 1,
@@ -29,7 +29,7 @@ module.exports = {
     'DELETE /api/notice/:id': async (ctx, next) => {
         console.log('删除某公告...');
         const result = await notice.deleteNotice(ctx.params.id);
-        console.log(result);
+       
         if(result===1){
             ctx.rest({
                 code: 1,
@@ -51,7 +51,7 @@ module.exports = {
             title: ctx.request.body.title,
             content: ctx.request.body.content,
         }, ctx.params.id);
-        console.log(result);
+       
         if(result===[0]){
             ctx.rest({
                 code: 1,
@@ -71,7 +71,7 @@ module.exports = {
     'GET /api/notice/:id': async (ctx, next) => {
         console.log('查询某公告...');
         const result = await notice.getNotice(ctx.params.id);
-        console.log(result);
+       
         ctx.rest({
             code: 1,
             message: '查询成功',
@@ -82,7 +82,7 @@ module.exports = {
     'GET /api/notices': async (ctx, next) => {
         console.log('公告列表...');
         const result = await notice.getNotices();
-        console.log(result);
+        
         ctx.rest({
             code: 1,
             message: '查询成功',

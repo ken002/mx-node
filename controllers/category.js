@@ -8,7 +8,7 @@ module.exports = {
         const result = await category.createCategory({
             name: ctx.request.body.name
         });
-        console.log(result);
+  
         if(result){
             ctx.rest({
                 code: 1,
@@ -27,7 +27,7 @@ module.exports = {
     'DELETE /api/category/:id': async (ctx, next) => {
         console.log('删除某个类别...');
         const result = await category.deleteCategory(ctx.params.id);
-        console.log(result);
+      
         if(result===1){
             ctx.rest({
                 code: 1,
@@ -46,7 +46,7 @@ module.exports = {
     'GET /api/category': async (ctx, next) => {
         console.log('查询所有分类...');
         const result = await category.getCategoryList();
-        console.log(result);
+     
         ctx.rest({
             code: 1,
             message: '查询成功',

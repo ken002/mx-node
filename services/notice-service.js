@@ -32,7 +32,7 @@ module.exports = {
         return result;
     },
     getNotices: async(params) => {
-        const result = Notice.findAll();
+        const result = await Notice.findAll();
         return result;
     }
 }

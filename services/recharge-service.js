@@ -32,7 +32,7 @@ module.exports = {
         return result;
     },
     getRecharges: async(params) => {
-        const result = Recharge.findAll();
+        const result = await Recharge.findAll();
         return result;
     }
 }

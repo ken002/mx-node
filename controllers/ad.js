@@ -10,7 +10,7 @@ module.exports = {
             image: ctx.request.body.image,
             intro: ctx.request.body.intro,
         });
-        console.log(result);
+     
         if(result){
             ctx.rest({
                 code: 1,
@@ -29,7 +29,7 @@ module.exports = {
     'DELETE /api/ad/:id': async (ctx, next) => {
         console.log('删除某广告...');
         const result = await ad.deleteAd(ctx.params.id);
-        console.log(result);
+       
         if(result===1){
             ctx.rest({
                 code: 1,
@@ -52,7 +52,6 @@ module.exports = {
             intro: ctx.request.body.intro,
         }, ctx.params.id);
         
-        console.log(result);
         if(result===[0]){
             ctx.rest({
                 code: 1,
@@ -72,7 +71,7 @@ module.exports = {
     'GET /api/ad/:id': async (ctx, next) => {
         console.log('查询某广告...');
         const result = await ad.getAd(ctx.params.id);
-        console.log(result);
+
         ctx.rest({
             code: 1,
             message: '查询成功',
@@ -83,7 +82,7 @@ module.exports = {
     'GET /api/ads': async (ctx, next) => {
         console.log('广告列表...');
         const result = await ad.getAds();
-        console.log(result);
+  
         ctx.rest({
             code: 1,
             message: '查询成功',

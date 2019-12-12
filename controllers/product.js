@@ -15,7 +15,7 @@ module.exports = {
             showType: ctx.request.body.showType,
             category: ctx.request.body.category
         });
-        console.log(result);
+        
         if(result){
             ctx.rest({
                 code: 1,
@@ -34,7 +34,7 @@ module.exports = {
     'DELETE /api/products/:id': async (ctx, next) => {
         console.log('删除某商品...');
         const result = await product.deleteProduct(ctx.params.id);
-        console.log(result);
+        
         if(result===1){
             ctx.rest({
                 code: 1,
@@ -62,7 +62,7 @@ module.exports = {
             showType: ctx.request.body.showType,
             category: ctx.request.body.category
         }, ctx.params.id);
-        console.log(result);
+        
         if(result===[0]){
             ctx.rest({
                 code: 1,
@@ -82,7 +82,7 @@ module.exports = {
     'GET /api/products/:id': async (ctx, next) => {
         console.log('查询某商品...');
         const result = await product.getProduct(ctx.params.id);
-        console.log(result);
+      
         ctx.rest({
             code: 1,
             message: '查询成功',
@@ -93,7 +93,7 @@ module.exports = {
     'GET /api/productsByCategory/:id': async (ctx, next) => {
         console.log('商品列表(按类别，不分页)...');
         const result = await product.getProductsByCategory(ctx.params.id);
-        console.log(result);
+      
         ctx.rest({
             code: 1,
             message: '查询成功',
@@ -135,7 +135,7 @@ module.exports = {
                 offset
             });
         }
-        console.log(result);
+       
         ctx.rest({
             code: 1,
             message: '查询成功',
