@@ -9,6 +9,7 @@ module.exports = {
         const result = await version.createVersion({
             platform: ctx.request.body.platform,
             appVersion: ctx.request.body.appVersion,
+            realAppVersion: ctx.request.body.realAppVersion,
             updateContent: ctx.request.body.updateContent,
             allUpdate: ctx.request.body.allUpdate,
             downloadUrl: ctx.request.body.downloadUrl
