@@ -8,56 +8,46 @@ module.exports = {
         
         const params=ctx.request.body;
         const result = await user.createUser({
-            openId:params.openId,
-            nickName:params.nickName,
-            gender:params.gender,
-            city:params.city,
-            province:params.province,
-            country:params.country,
-            avatarUrl:params.avatarUrl,
-            unionId:params.unionId,
+            account:params.account,
+            question:params.question,
+            password:params.password
         });
    
         if(result){
             ctx.rest({
                 code: 1,
-                message: '添加成功',
+                message: '注册成功',
                 data: result,
             });
         }else{
             ctx.rest({
                 code: 0,
-                message: '添加失败',
+                message: '注册失败，用户已存在',
                 data: result,
             });
         }
     },
     //改
     'PUT /api/user': async (ctx, next) => {
-        console.log('修改用户...');
+        console.log('修改密码...');
 
         const params=ctx.request.body;
         const result = await user.updateUser({
-            openId:params.openId,
-            nickName:params.nickName,
-            gender:params.gender,
-            city:params.city,
-            province:params.province,
-            country:params.country,
-            avatarUrl:params.avatarUrl,
-            unionId:params.unionId,
+            account:params.account,
+            question:params.question,
+            password:params.password
         });
    
-        if(result===[0]){
+        if(result[0].length>0){
             ctx.rest({
                 code: 1,
                 message: '修改成功',
-                data: result,
+                data: result[0],
             });
         }else{
             ctx.rest({
-                code: 1,
-                message: '修改失败',
+                code: 0,
+                message: '修改失败，账号或密保错误',
                 data: result,
             });
         }
@@ -75,6 +65,31 @@ module.exports = {
             data: result,
         });
     },
+    //查某个（根据账号密码）
+    'GET /api/userByAccountAndPass': async (ctx, next) => {
+        console.log('登录...');
+        const params=ctx.request.query;
+
+        const result = await user.getUserByAccountAndPass({
+            account:params.account,
+            password:params.password
+        });
+        
+        if(result[0].length>0){
+            ctx.rest({
+                code: 1,
+                message: '登录成功',
+                data: result[0],
+            });
+        }else{
+            ctx.rest({
+                code: 0,
+                message: '登录失败，账号或密码错误',
+                data: result,
+            });
+        }
+    },
+
     //查列表
     'GET /api/users': async (ctx, next) => {
         console.log('用户列表...');

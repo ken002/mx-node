@@ -1,4 +1,5 @@
 const model = require('../model');
+const db = require('../db');
 
 let User = model.User;
 
@@ -8,20 +9,20 @@ module.exports = {
         return result;
     },
     updateUser:async(params)=>{
-        const result= await User.update(params,{
+        const result = await db.sequelize.query(`SELECT * FROM user WHERE account=${params.account} AND question=${params.question}`);
+        return result;  
+    },
+    getUser:async(id)=>{
+        const result= await User.findAll({
             where:{
-                openId:params.openId
+                id
             }
         });
         return result;
     },
-    getUser:async(openId)=>{
-        const result= await User.findAll({
-            where:{
-                openId
-            }
-        });
-        return result;
+    getUserByAccountAndPass:async(params)=>{
+        const result = await db.sequelize.query(`SELECT * FROM user WHERE account=${params.account} AND password=${params.password}`);
+        return result;  
     },
     getUsers: async(params) => {
         const result = await User.findAll({
