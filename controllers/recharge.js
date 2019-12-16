@@ -10,37 +10,25 @@ module.exports = {
             intro: ctx.request.body.intro,
         });
        
-        if(result){
-            ctx.rest({
-                code: 1,
-                message: '添加成功',
-                data: result,
-            });
-        }else{
-            ctx.rest({
-                code: 0,
-                message: '添加失败',
-                data: result,
-            });
-        }
+        ctx.rest({
+            code:1,
+            data:result,
+            message:'新增成功'
+        });
     },
     //删
     'DELETE /api/recharge/:id': async (ctx, next) => {
         console.log('删除某充值项...');
         const result = await recharge.deleteRecharge(ctx.params.id);
        
-        if(result===1){
+        if (result) {
             ctx.rest({
-                code: 1,
-                message: '删除成功',
-                data: result,
+                code:1,
+                data:result,
+                message:'删除成功'
             });
-        }else{
-            ctx.rest({
-                code: 1,
-                message: '删除失败',
-                data: result,
-            });
+        } else {
+            throw new APIError(0, '要删除的优惠项不存在');
         }
     },
     //改
@@ -50,19 +38,11 @@ module.exports = {
             intro: ctx.request.body.intro,
         }, ctx.params.id);
       
-        if(result===[0]){
-            ctx.rest({
-                code: 1,
-                message: '修改成功',
-                data: result,
-            });
-        }else{
-            ctx.rest({
-                code: 1,
-                message: '修改失败',
-                data: result,
-            });
-        }
+        ctx.rest({
+            code:1,
+            data:result,
+            message:'修改成功'
+        });
         
     },
     //查某个
@@ -71,9 +51,9 @@ module.exports = {
         const result = await recharge.getRecharge(ctx.params.id);
       
         ctx.rest({
-            code: 1,
-            message: '查询成功',
-            data: result,
+            code:1,
+            data:result,
+            message:'查询成功'
         });
     },
     //查列表
@@ -82,9 +62,9 @@ module.exports = {
         const result = await recharge.getRecharges();
        
         ctx.rest({
-            code: 1,
-            message: '查询成功',
-            data: result,
+            code:1,
+            data:result,
+            message:'查询成功'
         });
     }
 

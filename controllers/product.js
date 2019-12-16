@@ -16,37 +16,25 @@ module.exports = {
             category: ctx.request.body.category
         });
         
-        if(result){
-            ctx.rest({
-                code: 1,
-                message: '添加成功',
-                data: result,
-            });
-        }else{
-            ctx.rest({
-                code: 0,
-                message: '添加失败',
-                data: result,
-            });
-        }
+        ctx.rest({
+            code:1,
+            data:result,
+            message:'新增成功'
+        });
     },
     //删
     'DELETE /api/products/:id': async (ctx, next) => {
         console.log('删除某商品...');
         const result = await product.deleteProduct(ctx.params.id);
         
-        if(result===1){
+        if (result) {
             ctx.rest({
-                code: 1,
-                message: '删除成功',
-                data: result,
+                code:1,
+                data:result,
+                message:'删除成功'
             });
-        }else{
-            ctx.rest({
-                code: 1,
-                message: '删除失败',
-                data: result,
-            });
+        } else {
+            throw new APIError(0, '要删除的商品不存在');
         }
     },
     //改
@@ -63,19 +51,11 @@ module.exports = {
             category: ctx.request.body.category
         }, ctx.params.id);
         
-        if(result===[0]){
-            ctx.rest({
-                code: 1,
-                message: '修改成功',
-                data: result,
-            });
-        }else{
-            ctx.rest({
-                code: 1,
-                message: '修改失败',
-                data: result,
-            });
-        }
+        ctx.rest({
+            code:1,
+            data:result,
+            message:'修改成功'
+        });
 
     },
     //查某个
@@ -84,9 +64,9 @@ module.exports = {
         const result = await product.getProduct(ctx.params.id);
       
         ctx.rest({
-            code: 1,
-            message: '查询成功',
-            data: result,
+            code:1,
+            data:result,
+            message:'查询成功'
         });
     },
     //查列表（按类别）
@@ -95,9 +75,9 @@ module.exports = {
         const result = await product.getProductsByCategory(ctx.params.id);
       
         ctx.rest({
-            code: 1,
-            message: '查询成功',
-            data: result,
+            code:1,
+            data:result,
+            message:'查询成功'
         });
     },
     //查列表
@@ -137,9 +117,9 @@ module.exports = {
         }
        
         ctx.rest({
-            code: 1,
-            message: '查询成功',
-            data: result,
+            code:1,
+            data:result,
+            message:'查询成功'
         });
     }
 };

@@ -5,6 +5,7 @@ module.exports = db.defineModel('user', {
         type: db.STRING(20),
         unique: true
     },
-    question:db.STRING(20),//密保
-    password:db.STRING(20),//密码
+    question:db.STRING(100),//密保
+    password:db.STRING(100),//密码
+    avatar:db.STRING(100),//头像
 });

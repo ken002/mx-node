@@ -11,37 +11,25 @@ module.exports = {
             price: ctx.request.body.price,
         });
    
-        if(result){
-            ctx.rest({
-                code: 1,
-                message: '添加成功',
-                data: result,
-            });
-        }else{
-            ctx.rest({
-                code: 0,
-                message: '添加失败',
-                data: result,
-            });
-        }
+        ctx.rest({
+            code:1,
+            data:result,
+            message:'新增成功'
+        });
     },
     //删
     'DELETE /api/color/:id': async (ctx, next) => {
         console.log('删除色板...');
         const result = await color.deleteColor(ctx.params.id);
      
-        if(result===1){
+        if (result) {
             ctx.rest({
-                code: 1,
-                message: '删除成功',
-                data: result,
+                code:1,
+                data:result,
+                message:'删除成功'
             });
-        }else{
-            ctx.rest({
-                code: 1,
-                message: '删除失败',
-                data: result,
-            });
+        } else {
+            throw new APIError(0, '要删除的色板不存在');
         }
     },
    
@@ -51,9 +39,9 @@ module.exports = {
         const result = await color.getColors();
      
         ctx.rest({
-            code: 1,
-            message: '查询成功',
-            data: result,
+            code:1,
+            data:result,
+            message:'查询成功'
         });
     }
 

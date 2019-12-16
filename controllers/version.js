@@ -15,37 +15,25 @@ module.exports = {
             downloadUrl: ctx.request.body.downloadUrl
         });
      
-        if(result){
-            ctx.rest({
-                code: 1,
-                message: '添加成功',
-                data: result,
-            });
-        }else{
-            ctx.rest({
-                code: 0,
-                message: '添加失败',
-                data: result,
-            });
-        }
+        ctx.rest({
+            code:1,
+            data:result,
+            message:'新增成功'
+        });
     },
     //删
     'DELETE /api/version/:id': async (ctx, next) => {
         console.log('删除版本...');
         const result = await version.deleteVersion(ctx.params.id);
      
-        if(result===1){
+        if (result) {
             ctx.rest({
-                code: 1,
-                message: '删除成功',
-                data: result,
+                code:1,
+                data:result,
+                message:'删除成功'
             });
-        }else{
-            ctx.rest({
-                code: 1,
-                message: '删除失败',
-                data: result,
-            });
+        } else {
+            throw new APIError(0, '要删除的版本不存在');
         }
     },
    
@@ -60,9 +48,9 @@ module.exports = {
         }
        
         ctx.rest({
-            code: 1,
-            message: '查询成功',
-            data: result,
+            code:1,
+            data:result,
+            message:'查询成功'
         });
     }
 
