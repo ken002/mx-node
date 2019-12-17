@@ -17,6 +17,14 @@ module.exports = {
             return result;  
         }
     },
+    updateUserAvatar:async(params,id)=>{
+        const result= await User.update(params,{
+            where:{
+                id
+            }
+        });
+        return result;
+    },
     getUserByAccountAndPass:async(params)=>{
         const result = await db.sequelize.query(`SELECT * FROM user WHERE account='${params.account}' AND password='${params.password}'`);
         return result;  

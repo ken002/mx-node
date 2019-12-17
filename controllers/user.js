@@ -27,32 +27,44 @@ module.exports = {
     },
     //改
     'PUT /api/user': async (ctx, next) => {
-        console.log('修改密码...');
+        console.log('修改信息...');
 
         const params=ctx.request.body;
-        const hash = crypto.createHash('md5');
-        const newPassword = hash.update(params.password).digest('hex');
-        const hash2 = crypto.createHash('md5');
-        const newQuestion = hash2.update(params.question).digest('hex');
-        const result = await user.updateUser({
-            account:params.account,
-            question:newQuestion,
-            password:newPassword
-        });
-        if(result===null){
-            ctx.rest({
-                code:0,
-                data:null,
-                message:'账号或密保错误'
+       
+        if(params.password!==undefined){
+            const hash = crypto.createHash('md5');
+            const newPassword = hash.update(params.password).digest('hex');
+            const hash2 = crypto.createHash('md5');
+            const newQuestion = hash2.update(params.question).digest('hex');
+            const result = await user.updateUser({
+                account:params.account,
+                question:newQuestion,
+                password:newPassword
             });
-        }else{
+            if(result===null){
+                ctx.rest({
+                    code:0,
+                    data:null,
+                    message:'账号或密保错误'
+                });
+            }else{
+                ctx.rest({
+                    code:1,
+                    data:result,
+                    message:'修改密码成功'
+                });
+            }
+        }
+        if(params.avatar!==undefined){
+            const result = await user.updateUserAvatar({
+                avatar:params.avatar
+            },params.id);
             ctx.rest({
                 code:1,
                 data:result,
-                message:'修改密码成功'
+                message:'修改头像成功'
             });
         }
-        
     },
     //查某个（根据账号密码）
     'GET /api/userByAccountAndPass': async (ctx, next) => {
