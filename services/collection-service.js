@@ -1,4 +1,5 @@
 const model = require('../model');
+const db = require('../db');
 
 let Collection = model.Collection;
 
@@ -25,13 +26,12 @@ module.exports = {
         return result;
     },
     getCollections: async(params) => {
-        const result = await Collection.findAll({
-            limit: parseInt(params.limit),
-            offset: parseInt(params.offset),
-            where:{
-                userId:params.userId
-            }
-        });
-        return result;
+        const result = await db.sequelize.query(`SELECT 
+            a.id as collectionId,
+            b.name, b.image, b.video, b.intro,showType, b.id
+            FROM collection a RIGHT JOIN product b ON a.productId = b.id 
+            WHERE a.userId='${params.userId}' LIMIT ${params.offset}, ${params.limit};`);
+
+        return result; 
     }
 }

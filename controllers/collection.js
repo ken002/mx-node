@@ -59,7 +59,7 @@ module.exports = {
         });
         ctx.rest({
             code:1,
-            data:result,
+            data:result[0],
             message:'查询成功'
         });
     }
