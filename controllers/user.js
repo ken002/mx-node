@@ -17,6 +17,7 @@ module.exports = {
             account:params.account,
             question:newQuestion,
             password:newPassword,
+            isManager:0,
             avatar:`http://${config.host}:8081/public/upload/logo.png`
         });
         ctx.rest({
